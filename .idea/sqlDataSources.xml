@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DdlMappings">
+    <mapping uuid="a56083a2-f7f2-48c7-b39c-8f5b1e3e44ae" name="musicdb@192.168.2.20 Mapping">
+      <data-sources db="6cac2c6e-7de8-4a2a-a0a9-2c3fb9ffc3f8" ddl="5199f4e3-87ac-4208-8d3e-d5251048b80d" />
+    </mapping>
+  </component>
+</project>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JpaBuddyIdeaProjectConfig">
+    <option name="defaultUnitInitialized" value="true" />
+    <option name="newEntityIdStrategy" value="Identity" />
+    <option name="newEntityIdType" value="Long" />
+    <option name="reLastEntityCreationPackage" value="chapter10-boot/src/main/java/com/apress/prospring6/ten/boot/entities" />
+    <option name="renamerInitialized" value="true" />
+    <option name="reverseEngineeringLastDbConnectionId" value="6cac2c6e-7de8-4a2a-a0a9-2c3fb9ffc3f8" />
+  </component>
+  <component name="JpaPluginProjectSettings" mapReferencesToBasicType="true" commentSavingStrategy="@Comment annotation" reExcludeTablePrefixes="" reExcludeColumnPrefixes="" reExcludeTableSuffixes="" reExcludeColumnSuffixes="">
+    <option name="entityNameTemplate" />
+    <option name="tableNameTemplate" value="${className.underscore().toUpperCase()}" />
+    <option name="columnNameTemplate" value="${fieldName.underscore().toUpperCase()}" />
+    <option name="generateSerialVersionUID" value="true" />
+    <option name="indexCase" value="upper" />
+    <option name="scaffoldingLanguage" />
+  </component>
+</project>
