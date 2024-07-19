@@ -88,7 +88,7 @@
         <module>chapter10</module>
         <module>chapter10-boot</module>
         <module>chapter10-mongo</module>
-<!--        <module>chapter10-mongo-boot</module>-->
+        <module>chapter10-mongo-boot</module>
 <!--        <module>chapter11</module>-->
 <!--        <module>chapter11-boot</module>-->
 <!--        <module>chapter12</module>-->
