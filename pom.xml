@@ -90,8 +90,13 @@
         <module>chapter10-mongo</module>
         <module>chapter10-mongo-boot</module>
         <module>chapter11</module>
+<<<<<<< HEAD
         <module>chapter11-boot</module>
 <!--        <module>chapter12</module>-->
+=======
+<!--        <module>chapter11-boot</module>-->
+        <module>chapter12</module>
+>>>>>>> d06b1c3 (Adding chapter12 part)
 <!--        <module>chapter13-artemis-boot</module>-->
 <!--        <module>chapter13-kafka-boot</module>-->
 <!--        <module>chapter13-sender-boot</module>-->
