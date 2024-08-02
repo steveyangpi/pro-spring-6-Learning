@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
@@ -44,7 +45,24 @@ public class CarServiceImpl implements CarService {
         var cars = findAll();
 
         var currentDate = LocalDate.now();
+        LOGGER.info("Car age update job started");
 
+        cars.forEach(car ->{
+            var p = Period.between(car.getManufactureDate(),currentDate);
+            int age = p.getYears();
+
+            car.setAge(age);
+            save(car);
+            LOGGER.info("car age update --> {}",car);
+        });
+
+        LOGGER.info("Car age update job completed successfully");
+        done = true;
+    }
+
+    @Override
+    public boolean isDone() {
+        return done;
     }
 }
 
