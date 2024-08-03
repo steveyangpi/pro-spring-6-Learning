@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.SchedulingConfigurer;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 import org.springframework.util.ErrorHandler;
@@ -21,10 +20,34 @@ import java.util.concurrent.ThreadPoolExecutor;
 @ComponentScan(basePackages = {"com.apress.prospring6.twelve.spring"},
         excludeFilters = @ComponentScan.Filter(
                 type = FilterType.ASSIGNABLE_TYPE,
-                classes = {TaskSchedulingConfig2.class, TaskSchedulingConfig3.class, TaskSchedulingConfig4.class}
-        ))
+                classes = {TaskSchedulingConfig.class, TaskSchedulingConfig3.class, TaskSchedulingConfig4.class})
+)
 @EnableScheduling
-public class TaskSchedulingConfig{
+public class TaskSchedulingConfig2 implements SchedulingConfigurer {
+    private static final Logger LOGGER = LoggerFactory.getLogger(TaskSchedulingConfig2.class);
 
+    @Override
+    public void configureTasks(ScheduledTaskRegistrar taskRegistrar) {
+        taskRegistrar.setScheduler(taskExecutor());
+    }
 
+    @Bean(destroyMethod = "shutdown")
+    public Executor taskExecutor() {
+        var tpts = new ThreadPoolTaskScheduler();
+        tpts.setPoolSize(3);
+        tpts.setThreadNamePrefix("tsc2-");
+        tpts.setErrorHandler(new ErrorHandler() {
+            @Override
+            public void handleError(Throwable t) {
+
+            }
+        });
+        tpts.setRejectedExecutionHandler(new RejectedExecutionHandler() {
+            @Override
+            public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {
+
+            }
+        });
+        return tpts;
+    }
 }
