@@ -47,6 +47,10 @@ public class CarServiceImpl implements CarService {
         var currentDate = LocalDate.now();
         LOGGER.info("Car age update job started");
 
+        if(System.nanoTime() % 5 ==0){
+            throw new IllegalStateException("Task no" + Thread.currentThread().getName() + "is dead, dead dead...");
+        }
+
         cars.forEach(car ->{
             var p = Period.between(car.getManufactureDate(),currentDate);
             int age = p.getYears();

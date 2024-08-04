@@ -3,6 +3,7 @@ package com.apress.prospring6.twelve.spring;
 import com.apress.prospring6.twelve.spring.config.TaskSchedulingConfig;
 import com.apress.prospring6.twelve.spring.config.TaskSchedulingConfig2;
 import com.apress.prospring6.twelve.spring.config.TaskSchedulingConfig3;
+import com.apress.prospring6.twelve.spring.config.TaskSchedulingConfig4;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
@@ -38,6 +39,8 @@ public class CarTaskSchedulerDemo {
                 return new AnnotationConfigApplicationContext(TaskSchedulingConfig2.class);
             }else if(args[0].equals("3")){
                 return new AnnotationConfigApplicationContext(TaskSchedulingConfig3.class);
+            }else if(args[0].equals("4")){
+                return new AnnotationConfigApplicationContext(TaskSchedulingConfig4.class);
             }
         }
         return null;

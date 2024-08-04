@@ -2,6 +2,7 @@ package com.apress.prospring6.twelve.spring.async;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -11,28 +12,27 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 
-@Configuration
-@EnableAsync
-@ComponentScan
-class AsyncConfig{
-    @Bean
-    public AsyncService asyncService(){
-        return new AsyncServiceImpl();
+class AsyncExceptionHandler implements AsyncUncaughtExceptionHandler {
+    private static final Logger LOGGER = LoggerFactory.getLogger(AsyncExceptionHandler.class);
+
+    @Override
+    public void handleUncaughtException(Throwable t, Method method, Object... obj) {
+        LOGGER.error("[{}]: task method '{}' failed because {}", Thread.currentThread(), method.getName(), t.getMessage(), t);
     }
 }
 
-/*
 @Configuration
 @EnableAsync
 @ComponentScan
-class AsyncConfig implements AsyncConfigurer {
+class Async2Config implements AsyncConfigurer {
 
     @Override
     public Executor getAsyncExecutor() {
-        var tpts =  new ThreadPoolTaskExecutor();
+        var tpts = new ThreadPoolTaskExecutor();
         tpts.setCorePoolSize(2);
         tpts.setMaxPoolSize(10);
         tpts.setThreadNamePrefix("tpte2-");
@@ -45,17 +45,21 @@ class AsyncConfig implements AsyncConfigurer {
     public AsyncService asyncService() {
         return new AsyncServiceImpl();
     }
-}
-*/
 
-public class AsyncDemo {
+    @Override
+    public AsyncUncaughtExceptionHandler getAsyncUncaughtExceptionHandler() {
+        return new AsyncExceptionHandler();
+    }
+}
+
+public class Async2Demo {
     private static final Logger LOGGER = LoggerFactory.getLogger(AsyncDemo.class);
 
     public static void main(String[] args) throws IOException, ExecutionException, InterruptedException {
-        try(var ctx = new AnnotationConfigApplicationContext(AsyncConfig.class)){
-            var asyncService = ctx.getBean("asyncService",AsyncService.class);
+        try (var ctx = new AnnotationConfigApplicationContext(Async2Config.class)) {
+            var asyncService = ctx.getBean("asyncService", AsyncService.class);
 
-            for(int i = 0;i<5;i++){
+            for (int i = 0; i < 5; i++) {
                 asyncService.asyncTask();
             }
 

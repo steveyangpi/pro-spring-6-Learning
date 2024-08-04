@@ -15,9 +15,9 @@ public class AsyncServiceImpl implements AsyncService {
     public void asyncTask() {
         LOGGER.info("Start execution of async task");
 
-//        if (System.nanoTime() % 5 == 0) {
-//            throw new IllegalStateException("Task no" + Thread.currentThread().getName() + "is dead,dead dead...");
-//        }
+        if (System.nanoTime() % 5 == 0) {
+            throw new IllegalStateException("Task no" + Thread.currentThread().getName() + "is dead,dead dead...");
+        }
 
         try {
             Thread.sleep(10000);
