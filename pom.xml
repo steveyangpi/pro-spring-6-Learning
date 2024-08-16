@@ -95,7 +95,7 @@
         <module>chapter13-artemis-boot</module>
         <module>chapter13-kafka-boot</module>
         <module>chapter13-sender-boot</module>
-<!--        <module>chapter14</module>-->
+        <module>chapter14</module>
 <!--        <module>chapter14-boot</module>-->
 <!--        <module>chapter15</module>-->
 <!--        <module>chapter15-boot</module>-->
