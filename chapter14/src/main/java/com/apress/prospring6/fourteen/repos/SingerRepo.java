@@ -7,7 +7,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
 
-public interface SingerRepo extends JpaRepository {
+public interface SingerRepo extends JpaRepository<Singer,Long> {
 
     @Query("select  s from Singer s where s.firstName=:fn")
     Iterable<Singer> findByFirstName(@Param("fn") String firstName);

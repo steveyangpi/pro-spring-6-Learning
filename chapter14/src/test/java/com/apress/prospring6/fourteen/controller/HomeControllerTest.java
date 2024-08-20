@@ -3,7 +3,7 @@ package com.apress.prospring6.fourteen.controller;
 import com.apress.prospring6.fourteen.WebConfig;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
+import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -14,7 +14,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @Disabled("Needs MariaDb up on port 3306 even if not used. Keep the container used to run the app up to run this test too.")
-@SpringJUnitConfig(classes = WebConfig.class)
+@SpringJUnitWebConfig(classes = WebConfig.class)
 public class HomeControllerTest {
 
     MockMvc mockMvc;

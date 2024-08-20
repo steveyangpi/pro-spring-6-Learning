@@ -1,6 +1,8 @@
 package com.apress.prospring6.fourteen.services;
 
 import com.apress.prospring6.fourteen.entities.Singer;
+import com.apress.prospring6.fourteen.problem.InvalidCriteriaException;
+import com.apress.prospring6.fourteen.util.CriteriaDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -15,5 +17,5 @@ public interface SingerService {
     void delete(Long id);
     Page<Singer> findAllByPage(Pageable pageable);
 
-//    List<Singer> getByCriteriaDto(CriteriaDto criteria) throws InvalidCriteriaException;
+    List<Singer> getByCriteriaDto(CriteriaDto criteria) throws InvalidCriteriaException;
 }
