@@ -8,25 +8,32 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Description;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.ui.context.support.ResourceBundleThemeSource;
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
+import org.springframework.web.servlet.DispatcherServlet;
+import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
+import org.springframework.web.servlet.mvc.WebContentInterceptor;
 import org.springframework.web.servlet.theme.CookieThemeResolver;
 import org.springframework.web.servlet.theme.ThemeChangeInterceptor;
 import org.thymeleaf.extras.java8time.dialect.Java8TimeDialect;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 import org.thymeleaf.spring6.templateresolver.SpringResourceTemplateResolver;
+import org.thymeleaf.spring6.view.ThymeleafView;
 import org.thymeleaf.spring6.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 import java.util.Locale;
 
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = {"com.apress.prospring6.fourteen"})
-public class WebConfig implements WebMvcConfigurer, ApplicationContextAware {
+public class WebConfig implements WebMvcConfigurer,ApplicationContextAware{
     private ApplicationContext applicationContext;
 
     @Override
@@ -47,12 +54,11 @@ public class WebConfig implements WebMvcConfigurer, ApplicationContextAware {
     }
 
     @Bean
-    @Description("Thymeleaf Template Engine")
+    @Description("Thymeleaf Template Engfine")
     public SpringTemplateEngine templateEngine(){
         var engine = new SpringTemplateEngine();
         engine.addDialect(new Java8TimeDialect());
         engine.setTemplateResolver(templateResolver());
-//        engine.setTemplateEngineMessageSource(messageSource());
         engine.setEnableSpringELCompiler(true);
         return engine;
     }
@@ -65,6 +71,9 @@ public class WebConfig implements WebMvcConfigurer, ApplicationContextAware {
         viewResolver.setOrder(1);
         return viewResolver;
     }
+
+    @Bean
+    ResourceBundleThemeSource themeSource(){return new ResourceBundleThemeSource();}
 
     @Override
     public void addResourceHandlers(final ResourceHandlerRegistry registry) {
@@ -83,52 +92,61 @@ public class WebConfig implements WebMvcConfigurer, ApplicationContextAware {
         registry.addRedirectViewController("/","/home");
     }
 
-//    @Override
-//    public void addInterceptors(InterceptorRegistry registry) {
-//        registry.addInterceptor(localeChangeInterceptor()).addPathPatterns("/*");
-//        registry.addInterceptor(themeChangeInterceptor());
-//    }
-//
-//    @Bean
-//    MessageSource messageSource(){
-//        var messageResource = new ReloadableResourceBundleMessageSource();
-//        messageResource.setBasename("classpath:i18/global");
-//        messageResource.setDefaultEncoding(StandardCharsets.UTF_8.name());
-//        messageResource.setUseCodeAsDefaultMessage(true);
-//        messageResource.setFallbackToSystemLocale(true);
-//
-//        return messageResource;
-//    }
-//
-//    @Bean
-//    LocaleChangeInterceptor localeChangeInterceptor(){
-//        var localeChangeInterceptor = new LocaleChangeInterceptor();
-//        localeChangeInterceptor.setParamName("lang");
-//        return localeChangeInterceptor;
-//    }
-//
-//    @Bean
-//    ThemeChangeInterceptor themeChangeInterceptor(){
-//        var themeChangeInterceptor = new ThemeChangeInterceptor();
-//        themeChangeInterceptor.setParamName("theme");
-//        return themeChangeInterceptor;
-//    }
-//
-//    @Bean
-//    CookieLocaleResolver localeResolver(){
-//        var cookieLocaleResolver = new CookieLocaleResolver();
-//        cookieLocaleResolver.setDefaultLocale(Locale.ENGLISH);
-//        cookieLocaleResolver.setCookieMaxAge(3600);
-//        cookieLocaleResolver.setCookieName("locale");
-//        return cookieLocaleResolver;
-//    }
-//
-//    @Bean
-//    CookieThemeResolver themeResolver(){
-//        var cookieThemeResolver = new CookieThemeResolver();
-//        cookieThemeResolver.setDefaultThemeName("green");
-//        cookieThemeResolver.setCookieMaxAge(3600);
-//        cookieThemeResolver.setCookieName("theme");
-//        return cookieThemeResolver;
-//    }
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(localeChangeInterceptor()).addPathPatterns("/*");
+        registry.addInterceptor(themeChangeInterceptor());
+        registry.addInterceptor(webChangeInterceptor());
+    }
+
+    @Bean
+    MessageSource messageSource() {
+        var messageResource = new ReloadableResourceBundleMessageSource();
+        messageResource.setBasename("classpath:i18n/global");
+        messageResource.setDefaultEncoding(StandardCharsets.UTF_8.name());
+        messageResource.setUseCodeAsDefaultMessage(true);
+        messageResource.setFallbackToSystemLocale(true);
+
+        return messageResource;
+    }
+
+    @Bean
+    LocaleChangeInterceptor localeChangeInterceptor() {
+        var localeChangeInterceptor = new LocaleChangeInterceptor();
+        localeChangeInterceptor.setParamName("lang");
+        return localeChangeInterceptor;
+    }
+
+    @Bean
+    ThemeChangeInterceptor themeChangeInterceptor() {
+        var themeChangeInterceptor = new ThemeChangeInterceptor();
+        themeChangeInterceptor.setParamName("theme");
+        return themeChangeInterceptor;
+    }
+
+    @Bean
+    CookieLocaleResolver localeResolver(){
+        var cookieLocaleResolver = new CookieLocaleResolver();
+        cookieLocaleResolver.setDefaultLocale(Locale.ENGLISH);
+        cookieLocaleResolver.setCookieMaxAge(3600);
+        cookieLocaleResolver.setCookieName("locale");
+        return cookieLocaleResolver;
+    }
+
+    @Bean
+    CookieThemeResolver themeResolver(){
+        var cookieThemeResolver  = new CookieThemeResolver();
+        cookieThemeResolver.setDefaultThemeName("green");
+        cookieThemeResolver.setCookieMaxAge(3600);
+        cookieThemeResolver.setCookieName("theme");
+        return cookieThemeResolver;
+    }
+
+    @Bean
+    WebContentInterceptor webChangeInterceptor(){
+        var webContentInterceptor = new WebContentInterceptor();
+        webContentInterceptor.setCacheSeconds(0);
+        webContentInterceptor.setSupportedMethods("GET","POST","PUT","DELETE");
+        return webContentInterceptor;
+    }
 }
