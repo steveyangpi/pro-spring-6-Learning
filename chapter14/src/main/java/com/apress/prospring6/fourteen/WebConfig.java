@@ -54,11 +54,12 @@ public class WebConfig implements WebMvcConfigurer,ApplicationContextAware{
     }
 
     @Bean
-    @Description("Thymeleaf Template Engfine")
+    @Description("Thymeleaf Template Engine")
     public SpringTemplateEngine templateEngine(){
         var engine = new SpringTemplateEngine();
         engine.addDialect(new Java8TimeDialect());
         engine.setTemplateResolver(templateResolver());
+        engine.setTemplateEngineMessageSource(messageSource());
         engine.setEnableSpringELCompiler(true);
         return engine;
     }
@@ -82,10 +83,10 @@ public class WebConfig implements WebMvcConfigurer,ApplicationContextAware{
                 .addResourceLocations("/images/","/styles/");
     }
 
-    @Override
-    public void configureDefaultServletHandling(final DefaultServletHandlerConfigurer configurer) {
-       configurer.enable();
-    }
+//    @Override
+//    public void configureDefaultServletHandling(final DefaultServletHandlerConfigurer configurer) {
+//       configurer.enable();
+//    }
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {

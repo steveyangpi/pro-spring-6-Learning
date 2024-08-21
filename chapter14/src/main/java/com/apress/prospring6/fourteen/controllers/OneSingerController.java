@@ -2,12 +2,16 @@ package com.apress.prospring6.fourteen.controllers;
 
 import com.apress.prospring6.fourteen.entities.Singer;
 import com.apress.prospring6.fourteen.services.SingerService;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Locale;
 
 
 @Controller
@@ -30,6 +34,42 @@ public class OneSingerController {
         uiModel.addAttribute("singer",singer);
 
         return "singers/show";
+    }
+
+    @GetMapping(path = "/edit")
+    public String showEditForm(@PathVariable("id") Long id,Model uiModel){
+        Singer singer = singerService.findById(id);
+
+        uiModel.addAttribute("singer",singer);
+        return "singers/edit";
+    }
+
+    @GetMapping(path="/upload")
+    public String showPhotoUpLoadForm(@PathVariable("id") Long id,Model uiModel){
+        Singer singer = singerService.findById(id);
+
+        uiModel.addAttribute("singer",singer);
+        return "singers/upload";
+    }
+
+    @PutMapping
+    public String updateSingerInfo(@Valid Singer singer, BindingResult bindingResult, Model uiModel, Locale locale){
+        if(bindingResult.hasErrors()){
+            uiModel.addAttribute("message",messageSource.getMessage("singer.save.fail",new Object[]{},locale));
+            uiModel.addAttribute("singer",singer);
+            return "singers/edit";
+        }else{
+            uiModel.asMap().clear();
+
+            var fromDb = singerService.findById(singer.getId());
+
+            fromDb.setFirstName(singer.getFirstName());
+            fromDb.setLastName(singer.getLastName());
+            fromDb.setBirthDate(singer.getBirthDate());
+
+            singerService.save(fromDb);
+            return "redirect:/singer/" + singer.getId();
+        }
     }
 
     @GetMapping("photo")

@@ -3,6 +3,7 @@ package com.apress.prospring6.fourteen.controllers;
 import com.apress.prospring6.fourteen.entities.AbstractEntity;
 import com.apress.prospring6.fourteen.entities.Singer;
 import com.apress.prospring6.fourteen.services.SingerService;
+import com.apress.prospring6.fourteen.util.SingerForm;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,5 +35,12 @@ public class SingersController {
         uiModel.addAttribute("singers",singers);
 
         return "singers/list";
+    }
+
+    //--------------- create ------------------
+    @GetMapping(value = "/create")
+    public String showCreateForm(Model uiModel){
+        uiModel.addAttribute("singerForm",new SingerForm());
+        return "singers/create";
     }
 }
