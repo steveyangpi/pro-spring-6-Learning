@@ -1,6 +1,8 @@
 package com.apress.prospring6.fourteen;
 
 import jakarta.servlet.Filter;
+import jakarta.servlet.MultipartConfigElement;
+import jakarta.servlet.ServletRegistration;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
@@ -32,5 +34,21 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
         return new Filter[]{new HiddenHttpMethodFilter(),cef};
     }
 
+    @Override
+    protected void customizeRegistration(ServletRegistration.Dynamic registration) {
+        registration.setInitParameter("throwExceptionIfNoHandlerFound", "true");
+        registration.setMultipartConfig(getMultipartConfigElement());
+        super.customizeRegistration(registration);
+    }
+
+    private MultipartConfigElement getMultipartConfigElement() {
+        return new MultipartConfigElement(null,MAX_FILE_SIZE,MAX_REQUEST_SIZE,FILE_SIZE_THRESHOLD);
+    }
+
+    private static final long MAX_FILE_SIZE = 5000000;
+
+    private static final long MAX_REQUEST_SIZE = 5000000;
+
+    private static final int FILE_SIZE_THRESHOLD = 0;
 
 }

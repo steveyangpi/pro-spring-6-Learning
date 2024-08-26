@@ -3,6 +3,7 @@ package com.apress.prospring6.fourteen.util;
 import jakarta.validation.constraints.NotEmpty;
 
 public class CriteriaDto {
+
     private String fieldName;
 
     @NotEmpty
@@ -14,11 +15,11 @@ public class CriteriaDto {
 
     public String getFieldName(){return fieldName;}
 
-    public void setFieldName(){this.fieldName = fieldName;}
+    public void setFieldName(String fieldName){this.fieldName = fieldName;}
 
     public String getFieldValue(){return fieldValue;}
 
-    public void setFieldValue(){this.fieldValue = fieldValue;}
+    public void setFieldValue(String fieldValue){this.fieldValue = fieldValue;}
 
     public Boolean getExactMatch(){return exactMatch;}
 

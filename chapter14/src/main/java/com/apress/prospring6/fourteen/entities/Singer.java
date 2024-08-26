@@ -25,7 +25,7 @@ public class Singer extends AbstractEntity {
 
     @NotEmpty
     @Size(min = 2,max = 30)
-    @Column(name = "Last_Name")
+    @Column(name = "LAST_NAME")
     private String lastName;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -72,6 +72,8 @@ public class Singer extends AbstractEntity {
     public void setAlbums(Set<Album> albums){this.albums = albums;}
 
     public void setBirthDate(LocalDate birthDate){this.birthDate = birthDate;}
+
+    public void setInstruments(Set<Instrument> instruments){this.instruments = instruments;}
 
     public boolean addInstrument(Instrument instrument){return getInstruments().add(instrument);}
 

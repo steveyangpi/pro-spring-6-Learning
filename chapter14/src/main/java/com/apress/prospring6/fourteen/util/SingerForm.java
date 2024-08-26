@@ -13,7 +13,7 @@ public class SingerForm {
     @Size(min=2,max=30,message = "{Size.singer.firstName")
     private String firstName;
 
-    @NotEmpty(message = "NotEmpty.singer.lastName")
+    @NotEmpty(message = "{NotEmpty.singer.lastName}")
     @Size(min = 2,max=30,message = "{Size.singer.lastName}")
     private String lastName;
 

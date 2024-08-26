@@ -9,6 +9,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Description;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.ui.context.support.ResourceBundleThemeSource;
+import org.springframework.validation.Validator;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.HandlerExceptionResolver;
@@ -39,6 +41,12 @@ public class WebConfig implements WebMvcConfigurer,ApplicationContextAware{
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
+    }
+
+    @Bean(name = DispatcherServlet.MULTIPART_RESOLVER_BEAN_NAME)
+    StandardServletMultipartResolver multipartResolver(){
+        StandardServletMultipartResolver multipartResolver  = new StandardServletMultipartResolver();
+        return multipartResolver;
     }
 
     @Bean
@@ -75,6 +83,18 @@ public class WebConfig implements WebMvcConfigurer,ApplicationContextAware{
 
     @Bean
     ResourceBundleThemeSource themeSource(){return new ResourceBundleThemeSource();}
+
+    @Bean
+    public Validator validator(){
+        final var validator = new LocalValidatorFactoryBean();
+        validator.setValidationMessageSource(messageSource());
+        return validator;
+    }
+
+    @Override
+    public Validator getValidator() {
+        return validator();
+    }
 
     @Override
     public void addResourceHandlers(final ResourceHandlerRegistry registry) {

@@ -3,6 +3,7 @@ package com.apress.prospring6.fourteen.controllers;
 import com.apress.prospring6.fourteen.entities.Singer;
 import com.apress.prospring6.fourteen.services.SingerService;
 import jakarta.validation.Valid;
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
@@ -10,7 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Locale;
 
 
@@ -91,5 +95,11 @@ public class OneSingerController {
         singerService.findById(id);
         singerService.delete(id);
         return "redirect:/singer/list";
+    }
+
+    static void setPhoto(Singer singer, MultipartFile file) throws IOException{
+        InputStream inputStream = file.getInputStream();
+        var fileContent = IOUtils.toByteArray(inputStream);
+        singer.setPhoto(fileContent);
     }
 }
