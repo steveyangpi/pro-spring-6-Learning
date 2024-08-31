@@ -26,10 +26,6 @@ public class Singer extends AbstractEntity {
     public static final String COUNT_ALL = "Singer.countAll";
     public static final String FIND_BY_FIRST_AND_LAST_NAME = "Singer.findByFirstAndLastName";
 
-    @ManyToOne
-    @JoinColumn(name = "SINGER_ID")
-    protected Singer singer;
-
     @NotNull
     @Size(min = 2, max = 30)
     @Column(name = "FIRST_NAME")

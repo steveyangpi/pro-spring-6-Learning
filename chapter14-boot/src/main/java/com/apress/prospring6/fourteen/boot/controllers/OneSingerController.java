@@ -24,7 +24,6 @@ import java.util.Locale;
 public class OneSingerController {
 
     private final Logger LOGGER = LoggerFactory.getLogger(OneSingerController.class);
-
     private final SingerService singerService;
     private final MessageSource messageSource;
 
@@ -80,7 +79,7 @@ public class OneSingerController {
         }
     }
 
-    @RequestMapping(value = "/photot",method = RequestMethod.GET)
+    @RequestMapping(value = "/photo",method = RequestMethod.GET)
     @ResponseBody
     public byte[] downloadPhoto(@PathVariable("id") Long id){
         Singer singer = singerService.findById(id);
@@ -109,7 +108,7 @@ public class OneSingerController {
     public String deleteSinger(@PathVariable("id") Long id)throws NotFoundException{
         singerService.findById(id);
         singerService.delete(id);
-        return "redirect:/singer/list";
+        return "redirect:/singers/list";
     }
 
     static void setPhoto(Singer singer, MultipartFile file)throws IOException{

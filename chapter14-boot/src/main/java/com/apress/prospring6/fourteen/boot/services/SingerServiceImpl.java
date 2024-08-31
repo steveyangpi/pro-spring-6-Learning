@@ -51,12 +51,12 @@ public class SingerServiceImpl implements SingerService{
         var fg = FieldGroup.getField(criteria.getFieldName());
         Iterable<Singer> result =
                 switch(fg){
-                    case FIRSTNAME -> criteria.getExactMatch() ? singerRepo.findByFirstName(criteria.getFieldName())
-                            : singerRepo.findByFirstNameLike(criteria.getFieldName());
+                    case FIRSTNAME -> criteria.getExactMatch() ? singerRepo.findByFirstName(criteria.getFieldValue())
+                            : singerRepo.findByFirstNameLike(criteria.getFieldValue());
 
 
                     case LASTNAME -> criteria.getExactMatch() ? singerRepo.findByFirstName(criteria.getFieldName())
-                            :singerRepo.findByLastNameLike(criteria.getFieldName());
+                            :singerRepo.findByLastNameLike(criteria.getFieldValue());
 
                     case BIRTHDATE -> {
                         LocalDate date;

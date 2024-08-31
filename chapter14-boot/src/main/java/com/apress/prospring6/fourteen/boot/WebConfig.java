@@ -15,7 +15,7 @@ import java.util.Locale;
 
 @Configuration
 @ComponentScan(basePackages = {"com.apress.prospring6.fourteen.boot"})
-public class WeConfig implements WebMvcConfigurer {
+public class WebConfig implements WebMvcConfigurer {
     @Bean
     LocaleChangeInterceptor localeChangeInterceptor(){
         var localeChangeInterceptor = new LocaleChangeInterceptor();
@@ -31,7 +31,7 @@ public class WeConfig implements WebMvcConfigurer {
     }
 
     @Bean
-    CookieLocaleResolver cookieLocaleResolver(){
+    CookieLocaleResolver localeResolver(){
         var cookieLocaleResolver = new CookieLocaleResolver();
         cookieLocaleResolver.setDefaultLocale(Locale.ENGLISH);
         cookieLocaleResolver.setCookieMaxAge(3600);
