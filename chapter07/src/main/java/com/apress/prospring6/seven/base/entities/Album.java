@@ -12,8 +12,6 @@ public class Album extends AbstractEntity {
     @Serial
     private static final long serialVersionUID = 3L;
 
-    protected com.apress.prospring6.eight.boot.entities.Singer singer;
-
     private String title;
     private LocalDate releaseDate;
 
@@ -21,19 +19,10 @@ public class Album extends AbstractEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "SINGER_ID")
-    public com.apress.prospring6.eight.boot.entities.Singer getSinger() {
+    public Singer getSinger() {
         return singer;
     }
 
-    public void setSinger(com.apress.prospring6.eight.boot.entities.Singer singer) {
-        this.singer = singer;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "SINGER_ID")
-    public Singer getSinger() {
-        return this.singer;
-    }
 
     @Column
     public String getTitle() {

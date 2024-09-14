@@ -97,8 +97,8 @@
         <module>chapter13-sender-boot</module>
         <module>chapter14</module>
         <module>chapter14-boot</module>
-<!--        <module>chapter15</module>-->
-<!--        <module>chapter15-boot</module>-->
+        <module>chapter15</module>
+        <module>chapter15-boot</module>
 <!--        <module>chapter16-kotlin-boot</module>-->
 <!--        <module>chapter16-native-boot</module>-->
 <!--        <module>chapter16-graphql-boot</module>-->
