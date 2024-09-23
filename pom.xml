@@ -69,7 +69,7 @@
 
     <modules>
         <module>chapter02</module>
-<!--        <module>chapter02-boot</module>-->
+        <module>chapter02-boot</module>
         <module>chapter03</module>
         <module>chapter04</module>
         <module>chapter04-boot</module>
@@ -142,16 +142,16 @@
     </dependencyManagement>
 
     <build>
-        <defaultGoal>clean install</defaultGoal>
-        <plugins>
-            <plugin>
-                <!-- this plugin provides a task to determine which dependencies have updates -->
-                <!-- mvn versions:update-properties  -->
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>versions-maven-plugin</artifactId>
-                <version>${versions-maven-plugin.version}</version>
-            </plugin>
-        </plugins>
+    <defaultGoal>clean install</defaultGoal>
+    <plugins>
+        <plugin>
+            <!-- this plugin provides a task to determine which dependencies have updates -->
+            <!-- mvn versions:update-properties  -->
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>versions-maven-plugin</artifactId>
+            <version>${versions-maven-plugin.version}</version>
+        </plugin>
+    </plugins>
         <pluginManagement>
             <plugins>
                 <plugin>

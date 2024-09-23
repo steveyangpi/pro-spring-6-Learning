@@ -1,0 +1,69 @@
+pluginManagement {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven { url "https://plugins.gradle.org/m2" }
+        maven { url "https://repo.spring.io/release" }
+        maven { url "https://repo.spring.io/snapshot" }
+        maven { url "https://repo.spring.io/libs-snapshot" }
+        maven { url "https://repo.spring.io/milestone" }
+        maven { url "https://repo.spring.io/libs-milestone-local" }
+        gradlePluginPortal()
+    }
+}
+
+rootProject.name = 'pro-spring-6'
+
+include 'chapter02'
+include 'chapter02-boot'
+include 'chapter03'
+include 'chapter04'
+include 'chapter04-boot'
+include 'chapter05'
+include 'chapter05-boot'
+include 'chapter06'
+include 'chapter06-boot'
+include 'chapter07'
+include 'chapter07-boot'
+include 'chapter07-jooq'
+include 'chapter07-jooq-boot'
+include 'chapter08'
+include 'chapter08-boot'
+include 'chapter09'
+include 'chapter09-boot'
+include 'chapter10'
+include 'chapter10-boot'
+include 'chapter10-mongo'
+include 'chapter10-mongo-boot'
+include 'chapter11'
+include 'chapter11-boot'
+include 'chapter12'
+include 'chapter13-artemis-boot'
+include 'chapter13-kafka-boot'
+include 'chapter13-sender-boot'
+include 'chapter14'
+include 'chapter14-boot'
+include 'chapter15'
+include 'chapter15-boot'
+include 'chapter16-native-boot'
+include 'chapter16-kotlin-boot'
+include 'chapter16-graphql-boot'
+include 'chapter17'
+include 'chapter17-boot'
+include 'chapter18'
+include 'chapter18-boot'
+include 'chapter19'
+include 'chapter19-boot'
+include 'chapter20-boot'
+
+println(' This project is a collection of simple code samples. It is meant to be used together with the ' +
+        '"Pro Spring 6"  book' +
+        ' published by Apress in order to learn and practice Spring.')
+
+//we check if the modules have gradle configuration files
+rootProject.children.each { project ->
+    project.buildFileName = "${project.name}.gradle"
+    assert project.projectDir.isDirectory()
+    assert project.buildFile.exists()
+    assert project.buildFile.isFile()
+}
