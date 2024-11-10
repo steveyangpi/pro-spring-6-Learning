@@ -103,7 +103,7 @@
 <!--        <module>chapter16-native-boot</module>-->
 <!--        <module>chapter16-graphql-boot</module>-->
         <module>chapter17</module>
-<!--        <module>chapter17-boot</module>-->
+        <module>chapter17-boot</module>
 <!--        <module>chapter18</module>-->
 <!--        <module>chapter18-boot</module>-->
 <!--        <module>chapter19</module>-->
